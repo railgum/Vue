@@ -1,18 +1,12 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <!--<HelloWorld msg="Welcome to Your Vue.js App" />-->
-    <HelloWorld :msg="msg" />
-    <p>{{ msg }}</p>
-    <button @click="inc(5, $event)">{{ counter }}</button>
-		<Calc />
+    <Calc />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 import Calc from "./components/Calc.vue";
-
 
 export default {
   name: "App",
@@ -25,12 +19,11 @@ export default {
   methods: {
     inc(step, event) {
       console.log(event);
-      this.counter+=step;
+      this.counter += step;
     },
   },
   components: {
-    HelloWorld,
-		Calc,
+    Calc,
   },
 };
 </script>
