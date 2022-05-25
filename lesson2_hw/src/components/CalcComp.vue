@@ -5,6 +5,7 @@
         <!--<input type="number" v-model.number="op1" />
         <input type="number" v-model.number="op2" />-->
         <input type="text" v-model="op1" />
+        <div class="sign">{{ operator }}</div>
         <input type="text" v-model="op2" />
         <div class="equ">=</div>
         <div class="res">{{ result }}</div>
@@ -28,14 +29,18 @@
         <button @click="pow">x<sup>y</sup></button>
         <button @click="intDiv">DIV</button>
       </div>-->
+      <div class="show-key">
+        <input type="checkbox" id="checkbox-key" v-model="checked" />
+        <label for="checkbox-key">Keyboard</label>
+      </div>
       <div class="functionField">
-        <div class="numberField">
+        <div class="numberField" v-show="checked">
           <button
-            v-for="number of calcNumbers"
-            :key="number"
-            @click="addNumber(number)"
+            v-for="numberKey of calcNumbers"
+            :key="numberKey"
+            @click="addNumber(numberKey)"
           >
-            {{ number }}
+            {{ numberKey }}
           </button>
         </div>
         <div class="calc">
@@ -60,18 +65,21 @@ export default {
   name: "CalcComp",
   data() {
     return {
-      op1: "0",
-      op2: "0",
-      result: 0,
+      op1: "",
+      op2: "",
+      operator: "",
+      result: null,
       picked: "op1",
+      checked: false,
       error: "",
-      calcNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+      calcNumbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "<--"],
       operators: ["+", "-", "/", "*", "POW", "DIV"],
     };
   },
   methods: {
     calculate(operator) {
       this.error = "";
+      this.operator = operator;
       // eslint-disable-next-line default-case
       switch (operator) {
         case "+":
@@ -95,9 +103,12 @@ export default {
           break;
       }
     },
-    addNumber(number) {
-      //console.log(number, picked);
-      this[this.picked] += String(number);
+    addNumber(numberKey) {
+      //console.log(numberKey);
+      if (numberKey == "<--") {
+        console.log(this[this.picked]);
+        this[this.picked] = this[this.picked].slice(0, -1);
+      } else this[this.picked] += String(numberKey);
     },
     add() {
       const { op1, op2 } = this;
@@ -134,9 +145,10 @@ export default {
     },
     reset() {
       this.error = "";
-      this.result = 0;
-      this.op1 = 0;
-      this.op2 = 0;
+      this.result = null;
+      this.op1 = "";
+      this.op2 = "";
+      this.operator = "";
     },
   },
 };
@@ -149,19 +161,21 @@ export default {
   flex-direction: column;
   margin: 50px auto;
   width: 400px;
-  height: 400px;
+  height: 450px;
   .screen {
     margin: 20px auto;
     display: flex;
     justify-content: center;
-    width: 300px;
+    width: 350px;
     input {
       text-align: center;
       margin: 15px;
       width: 50px;
       height: 30px;
     }
-
+    .sign {
+      margin-top: 20px;
+    }
     .equ {
       margin-top: 20px;
       margin-right: 15px;
@@ -172,7 +186,7 @@ export default {
       margin-top: 15px;
       text-align: center;
       padding-top: 5px;
-      width: 60px;
+      width: 100px;
       height: 30px;
       border: 1px solid black;
     }
@@ -180,18 +194,40 @@ export default {
   .error {
     color: #f00;
   }
-  .calc {
-    margin: 30px auto;
-    width: 200px;
+  .functionField {
     display: flex;
-    flex-wrap: wrap;
-    button {
-      display: block;
-      width: 50px;
-      height: 35px;
-      margin: 5px;
-      font-size: 13px;
-      font-weight: bold;
+    height: 230px;
+    .numberField {
+      width: 200px;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      button {
+        display: block;
+        width: 50px;
+        height: 35px;
+        margin: 5px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+    }
+    .calc {
+      margin: 30px auto;
+      width: 200px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      button {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        font-size: 13px;
+        font-weight: bold;
+      }
     }
   }
   .clear {
