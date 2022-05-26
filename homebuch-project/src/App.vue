@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <header>
+      <div class="header">My Homebuch</div>
+    </header>
+    <main>
+      <ExpensesList />
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ExpensesList from "./components/ExpensesList";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-  }
-}
+    ExpensesList,
+  },
+};
 </script>
 
 <style lang="scss">
