@@ -1,19 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <header>
+      <div>My Homebuch</div>
+    </header>
+    <main>
+      <div>
+        <ExpenseList :items="paymentsList" />
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ExpenseList from "./components/ExpenseList.vue";
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      paymentsList: [],
+    };
+  },
+  methods: {
+    fetchData() {
+      return [
+        {
+          date: "10.05.2022",
+          category: "Food",
+          value: 358,
+        },
+        {
+          date: "12.05.2022",
+          category: "Transport",
+          value: 2493,
+        },
+        {
+          date: "15.05.2022",
+          category: "Home",
+          value: 774,
+        },
+      ];
+    },
+  },
   components: {
-    HelloWorld
-  }
-}
+    ExpenseList,
+  },
+  created() {
+    this.paymentsList = this.fetchData();
+  },
+};
 </script>
 
 <style>
