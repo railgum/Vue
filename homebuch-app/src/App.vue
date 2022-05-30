@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <header>
-      <div>My Homebuch</div>
+      <h1>My Homebuch</h1>
     </header>
     <main>
       <div>
-        <ExpenseList :items="paymentsList" />
+        <AddCostForm @AddCost='addNewPayment' />
+        <CostList :items="paymentsList" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import ExpenseList from "./components/ExpenseList.vue";
+import CostList from "./components/CostList.vue";
+import AddCostForm from "./components/AddCostForm.vue";
 
 export default {
   name: "App",
@@ -25,38 +27,45 @@ export default {
     fetchData() {
       return [
         {
-          date: "10.05.2022",
+          date: "27.05.2022",
           category: "Food",
-          value: 358,
+          value: 847,
         },
         {
-          date: "12.05.2022",
+          date: "28.05.2022",
           category: "Transport",
-          value: 2493,
+          value: 449,
         },
         {
-          date: "15.05.2022",
-          category: "Home",
-          value: 774,
+          date: "29.05.2022",
+          category: "Medical",
+          value: 554,
         },
       ];
     },
+    addNewPayment(data) {
+      console.log(data);
+      this.paymentsList.push(data);
+    },
   },
   components: {
-    ExpenseList,
+    CostList,
+    AddCostForm,
   },
+
   created() {
     this.paymentsList = this.fetchData();
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
+  margin-left: 50px;
   color: #2c3e50;
   margin-top: 60px;
 }

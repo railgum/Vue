@@ -1,4 +1,4 @@
-# homebuch-project
+# homebuch-app
 
 ## Project setup
 ```
